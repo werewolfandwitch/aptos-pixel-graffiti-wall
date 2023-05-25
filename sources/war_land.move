@@ -118,6 +118,9 @@ module war_land::lands {
     }
 
     entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64, days:u64) acquires LaunchPad, RentInfo {                        
+        if(!coin::is_account_registered<CoinType>(signer::address_of(sender))){
+            coin::register<CoinType>(sender);
+        };
         let resource_signer = get_resource_account_cap(minter);
         // let resource_account_address = signer::address_of(&resource_signer);
         let rent_info = borrow_global_mut<RentInfo>(minter);
@@ -126,7 +129,7 @@ module war_land::lands {
         // pay coins
         let coin_address = utils::coin_address<CoinType>();
         let price_to_pay = WAR_COIN_PRICE;
-        if(coin_address == @war_coin) {
+        if(coin_address == @war_coin) {            
             price_to_pay = WAR_COIN_PRICE;
         } else if(coin_address == @apt_coin) {
             price_to_pay = APT_COIN_PRICE;
@@ -138,7 +141,7 @@ module war_land::lands {
         
         if(table::contains(&mut rent_info.rents, coord_id)) {
             let rent = table::borrow(&rent_info.rents, coord_id);                        
-            assert!(rent.expired < timestamp::now_seconds(),ENOT_EXPIRED);           
+            assert!(rent.expired < timestamp::now_seconds(), ENOT_EXPIRED);           
             table::upsert(&mut rent_info.rents, coord_id, Rent {  
                 owner: signer::address_of(sender),              
                 expired: timestamp::now_seconds() + ONE_DAY * days,            
@@ -253,7 +256,7 @@ module war_land::lands {
     // only for bad pixels
     entry fun admin_bother<WarCoinType>(sender:&signer,x:u64,y:u64,r:u8, g:u8, b:u8, a:u8) acquires LaunchPad {                
         let sender_addr = signer::address_of(sender);                        
-         let minter = borrow_global_mut<LaunchPad>(sender_addr);               
+        let minter = borrow_global_mut<LaunchPad>(sender_addr);               
         event::emit_event(&mut minter.color_state_events, StateChangeEvent {            
             x: x,
             y: y,
