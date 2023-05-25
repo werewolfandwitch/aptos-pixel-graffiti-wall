@@ -124,7 +124,10 @@ module war_land::lands {
         let resource_signer = get_resource_account_cap(minter);
         // let resource_account_address = signer::address_of(&resource_signer);
         let rent_info = borrow_global_mut<RentInfo>(minter);
-        let coord_id = create_coord_id(x,y); 
+        let coord_id = create_coord_id(x,y);
+        let minter = borrow_global_mut<LaunchPad>(minter); 
+        
+        assert!(minter.launchpad_public_open < timestamp::now_seconds(), error::permission_denied(ENOT_OPENED));
         assert!((x <= X_MAX && y <= Y_MAX), error::permission_denied(EOUT_RANGE));
         // pay coins
         let coin_address = utils::coin_address<CoinType>();
@@ -152,7 +155,7 @@ module war_land::lands {
                 expired: timestamp::now_seconds() + ONE_DAY * days,            
             });
         };
-        let minter = borrow_global_mut<LaunchPad>(minter);
+        
         event::emit_event(&mut minter.rent_events, RentEvent {            
             owner: signer::address_of(sender),
             x: x,
