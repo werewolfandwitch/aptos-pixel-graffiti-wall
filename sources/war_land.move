@@ -119,7 +119,7 @@ module war_land::lands {
 
     entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64, days:u64) acquires LaunchPad, RentInfo {                        
         let resource_signer = get_resource_account_cap(minter);
-        let resource_account_address = signer::address_of(&resource_signer);
+        // let resource_account_address = signer::address_of(&resource_signer);
         let rent_info = borrow_global_mut<RentInfo>(minter);
         let coord_id = create_coord_id(x,y); 
         assert!((x <= X_MAX && y <= Y_MAX), error::permission_denied(EOUT_RANGE));
@@ -176,7 +176,7 @@ module war_land::lands {
             assert!((coin_address == @war_coin || coin_address == @apt_coin), error::permission_denied(ENOT_AUTHORIZED));
         };                
         let resource_signer = get_resource_account_cap(minter);
-        let resource_account_address = signer::address_of(&resource_signer);        
+        // let resource_account_address = signer::address_of(&resource_signer);        
         let coins_to_pay = coin::withdraw<CoinType>(sender, price_to_pay);                
         coin::deposit(signer::address_of(&resource_signer), coins_to_pay);
 
@@ -195,7 +195,7 @@ module war_land::lands {
 
     entry fun extend_time<CoinType>(sender:&signer, minter:address, x:u64, y:u64, days:u64) acquires LaunchPad, RentInfo {
         let resource_signer = get_resource_account_cap(minter);
-        let resource_account_address = signer::address_of(&resource_signer);
+        // let resource_account_address = signer::address_of(&resource_signer);
          // pay coins
         let coin_address = utils::coin_address<CoinType>();
         let price_to_pay = WAR_COIN_PRICE;
@@ -215,7 +215,7 @@ module war_land::lands {
         let coord_id = create_coord_id(x,y);                                      
         let rent = table::borrow(&rent_info.rents, coord_id);
         assert!(rent.owner ==  signer::address_of(sender), ENOT_OWNER);
-        assert!(days < 365, ENOT_AUTHORIZED);
+        assert!(days <= 365, ENOT_AUTHORIZED);
         table::upsert(&mut rent_info.rents, coord_id, Rent {  
             owner: signer::address_of(sender),              
             expired: timestamp::now_seconds() + ONE_DAY * days,
@@ -230,9 +230,7 @@ module war_land::lands {
         });        
     }
 
-    entry fun release_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64) acquires LaunchPad, RentInfo {        
-        let resource_signer = get_resource_account_cap(minter);
-        let resource_account_address = signer::address_of(&resource_signer);
+    entry fun release_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64) acquires LaunchPad, RentInfo {                
         let rent_info = borrow_global_mut<RentInfo>(minter);
         let coord_id = create_coord_id(x,y);                                      
         let rent = table::borrow(&rent_info.rents, coord_id);
