@@ -161,6 +161,17 @@ module war_land::lands {
             x: x,
             y: y,
             expired: timestamp::now_seconds() + ONE_DAY * days                      
+        });
+
+        event::emit_event(&mut minter.color_state_events, StateChangeEvent {            
+            x: x,
+            y: y,
+            r: 128,
+            g: 255,
+            b: 0,
+            a: 1,
+            changer: signer::address_of(sender),          
+            timestamp: timestamp::now_microseconds(),
         });        
     }
 
