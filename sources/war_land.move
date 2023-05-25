@@ -20,8 +20,8 @@ module war_land::lands {
 
     use aptos_std::table::{Self, Table};  
 
-    const X_MAX:u64 = 140;
-    const Y_MAX:u64 = 140;
+    const X_MAX:u64 = 150;
+    const Y_MAX:u64 = 150;
 
     const WAR_COIN_PRICE:u64 = 100000000; // 1 WAR
     const APT_COIN_PRICE:u64 = 1000000; // 0.01 APT
@@ -35,6 +35,7 @@ module war_land::lands {
     const ENOT_OPENED:u64 = 3;
     const ENOT_EXPIRED:u64 = 4;
     const ENOT_OWNER:u64 = 5;
+    const EOUT_RANGE:u64 = 6;
 
     const ONE_DAY:u64 = 86400;
 
@@ -121,7 +122,7 @@ module war_land::lands {
         let resource_account_address = signer::address_of(&resource_signer);
         let rent_info = borrow_global_mut<RentInfo>(minter);
         let coord_id = create_coord_id(x,y); 
-
+        assert!((x <= X_MAX && y <= Y_MAX), error::permission_denied(EOUT_RANGE));
         // pay coins
         let coin_address = utils::coin_address<CoinType>();
         let price_to_pay = WAR_COIN_PRICE;
