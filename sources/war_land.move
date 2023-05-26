@@ -117,7 +117,7 @@ module war_land::lands {
         };
     }
 
-    entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64, days:u64) acquires LaunchPad, RentInfo {                        
+    entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64 r:u8, g:u8, b:u8, a:u8, days:u64) acquires LaunchPad, RentInfo {                        
         if(!coin::is_account_registered<CoinType>(signer::address_of(sender))){
             coin::register<CoinType>(sender);
         };
@@ -166,16 +166,16 @@ module war_land::lands {
         event::emit_event(&mut minter.color_state_events, StateChangeEvent {            
             x: x,
             y: y,
-            r: 128,
-            g: 255,
-            b: 0,
-            a: 1,
+            r: r,
+            g: g,
+            b: b,
+            a: a,
             changer: signer::address_of(sender),          
             timestamp: timestamp::now_microseconds(),
         });        
     }
 
-    entry fun change_color<CoinType>(sender:&signer, minter:address, x:u64, y:u64,r:u8, g:u8, b:u8, a:u8) acquires LaunchPad, RentInfo {
+    entry fun change_color<CoinType>(sender:&signer, minter:address, x:u64, y:u64, r:u8, g:u8, b:u8, a:u8) acquires LaunchPad, RentInfo {
         let sender_addr = signer::address_of(sender);
         //check rent owner
         let rent_info = borrow_global_mut<RentInfo>(minter);
