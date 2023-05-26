@@ -12,8 +12,6 @@ module war_land::utils {
     use aptos_std::type_info;
     use aptos_token::token::{Self, TokenId, TokenDataId};
 
-    
-
 
     public fun coin_address<CoinType>(): address {
        let type_info = type_info::type_of<CoinType>();

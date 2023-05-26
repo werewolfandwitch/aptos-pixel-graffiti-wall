@@ -24,11 +24,7 @@ module war_land::lands {
     const Y_MAX:u64 = 150;
 
     const WAR_COIN_PRICE:u64 = 100000000; // 1 WAR
-    const APT_COIN_PRICE:u64 = 1000000; // 0.01 APT
-
-    const MAP_X: vector<u8> = b"W_MAP_X"; 
-    const MAP_Y:vector<u8> = b"W_MAP_Y";
-    const FEE_DENOMINATOR: u64 = 100000; // should check fee too. should be lower. 
+    const APT_COIN_PRICE:u64 = 1000000; // 0.01 APT    
 
     const ENOT_AUTHORIZED: u64 = 1;
     const ENO_SUFFICIENT_FUND:u64 = 2;
@@ -91,7 +87,6 @@ module war_land::lands {
         Coord { x, y }
     }
     
-
     entry fun init<CoinType, WarCoinType>(sender:&signer, launchpad_public_open:u64) {
         let (resource_signer, signer_cap) = account::create_resource_account(sender, x"01");                    
         let sender_addr = signer::address_of(sender);
