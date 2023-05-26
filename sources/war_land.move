@@ -11,13 +11,6 @@ module war_land::lands {
 
     use war_land::utils;
 
-    const BURNABLE_BY_CREATOR: vector<u8> = b"TOKEN_BURNABLE_BY_CREATOR";    
-    const BURNABLE_BY_OWNER: vector<u8> = b"TOKEN_BURNABLE_BY_OWNER";
-    const TOKEN_PROPERTY_MUTABLE: vector<u8> = b"TOKEN_PROPERTY_MUTATBLE";
-
-    const COLLECTION_NAME:vector<u8> = b"LAND TOKEN COLLECTION";
-    const TOKEN_PRE_NAME:vector<u8> = b"W&W Graffiti Wall ";
-
     use aptos_std::table::{Self, Table};  
 
     const X_MAX:u64 = 150;
