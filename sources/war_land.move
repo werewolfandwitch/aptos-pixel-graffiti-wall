@@ -117,7 +117,7 @@ module war_land::lands {
         };
     }
 
-    entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64 r:u8, g:u8, b:u8, a:u8, days:u64) acquires LaunchPad, RentInfo {                        
+    entry fun rent_pixel<CoinType>(sender:&signer, minter:address, x:u64, y:u64, r:u8, g:u8, b:u8, a:u8, days:u64) acquires LaunchPad, RentInfo {                        
         if(!coin::is_account_registered<CoinType>(signer::address_of(sender))){
             coin::register<CoinType>(sender);
         };
