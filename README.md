@@ -2,7 +2,7 @@
 
 # Aptos graffiti wall 
 
-- Demo [werewolfandwitch.xyz](https://werewolfandwitch.xyz/)
+- Live: [werewolfandwitch.xyz](https://werewolfandwitch.xyz/)
 
 
 <br/>
