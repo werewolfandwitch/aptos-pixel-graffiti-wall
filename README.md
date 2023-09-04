@@ -4,6 +4,10 @@
 
 - Live: [werewolfandwitch.xyz](https://werewolfandwitch.xyz/)
 
+# Description
+
+This feature was introduced in one of the updates in the Werewolf and Witch game, a decentralized game based on the Move smart contracts. Users can rent a pixel in a pixel map and change the color of that pixel which allows them to draw a full-sized image composed of pixels. During the rent time, other users cannot overwrite the pixel unless given an admin authority.
+
 
 <br/>
 
