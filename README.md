@@ -9,7 +9,6 @@ This feature was introduced in one of the updates in the Werewolf and Witch game
 
 ## Cloning the repository
 ```git clone https://github.com/werewolfandwitch/aptos-pixel-graffiti-wall.git```
-Change the file path in dependencies and update the addresses
 
 ## Initialize
 Initialize with ```aptos init``` in the ```aptos-pixel-graffiti-wall``` folder you just cloned
