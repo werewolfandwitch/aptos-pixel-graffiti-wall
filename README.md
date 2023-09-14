@@ -4,9 +4,21 @@
 
 - Live: [werewolfandwitch.xyz](https://werewolfandwitch.xyz/)
 
-# Description
-
+## Description
 This feature was introduced in one of the updates in the Werewolf and Witch game, a decentralized game based on the Move smart contracts. Users can rent a pixel in a pixel map and change the color of that pixel which allows them to draw a full-sized image composed of pixels. During the rent time, other users cannot overwrite the pixel unless given an admin authority.
+
+## Cloning the repository
+```git clone https://github.com/werewolfandwitch/aptos-pixel-graffiti-wall.git```
+Change the file path in dependencies and update the addresses
+
+## Initialize
+Initialize with ```aptos init``` in the ```aptos-pixel-graffiti-wall``` folder you just cloned
+
+## Compile
+```aptos move compile --named-addresses war_land=default```
+
+## Publish
+```aptos move publish --named-addresses war_land=default```
 
 
 <br/>
